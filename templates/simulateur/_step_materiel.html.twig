@@ -1,0 +1,69 @@
+<div x-show="step === 3" class="fr-fade">
+    <h2 class="fs-3 mb-2">Matériel &amp; équipement</h2>
+    <p class="fr-body-text mb-3" style="max-width: 680px; text-wrap: pretty">
+        Ordinateur, écran, bureau, chaise… achetés pour le télétravail ou votre profession.
+        Seule la part d'usage professionnel est déductible.
+    </p>
+
+    <div class="no-print d-flex gap-2 flex-wrap mb-3">
+        <template x-for="p in MAT_PRESETS" :key="p.label">
+            <button type="button" class="fr-chip" @click="addMat(p)">+ <span x-text="p.label"></span></button>
+        </template>
+    </div>
+
+    <div x-show="sim.materiel.length === 0" class="fr-empty p-4 text-center fw-medium">
+        Ajoutez un équipement avec les boutons ci-dessus, ou passez cette étape si vous n'avez rien acheté.
+    </div>
+
+    <div class="d-flex flex-column gap-2">
+        <template x-for="(it, i) in sim.materiel" :key="it.id">
+            <div class="fr-card p-3 px-4" style="border-radius: 16px">
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-6">
+                        <label class="form-label small fw-semibold fr-muted mb-1" style="letter-spacing: 0.3px">ÉQUIPEMENT</label>
+                        <input type="text" class="form-control" placeholder="Ordinateur portable" x-model="it.label">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-semibold fr-muted mb-1" style="letter-spacing: 0.3px">PRIX TTC (€)</label>
+                        <input type="text" inputmode="decimal" class="form-control" placeholder="899" x-model="it.prix">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-semibold fr-muted mb-1" style="letter-spacing: 0.3px">ANNÉE D'ACHAT</label>
+                        <select class="form-select" x-model="it.annee">
+                            <option :value="String(Y.rev)" x-text="Y.rev"></option>
+                            <option :value="String(Y.rev - 1)" x-text="Y.rev - 1"></option>
+                            <option :value="String(Y.rev - 2)" x-text="Y.rev - 2"></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-3 mt-3 flex-wrap">
+                    <div class="flex-grow-1 d-flex align-items-center gap-2" style="min-width: 260px">
+                        <span class="small fw-semibold fr-muted flex-none" style="letter-spacing: 0.3px">USAGE PRO</span>
+                        <input type="range" class="form-range flex-grow-1" min="0" max="100" step="5" x-model="it.pct">
+                        <span class="fw-bold small text-end" style="width: 44px" x-text="it.pct + ' %'"></span>
+                    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        <span class="fr-badge" :class="{ off: matRegime(it).off }" x-text="matRegime(it).label"></span>
+                        <span class="fr-amount" style="min-width: 90px; text-align: right" x-text="eur(c.matDed(it))"></span>
+                        <button type="button" class="no-print btn btn-link btn-sm p-1 fw-semibold" style="color: var(--fr-danger)" @click="delMat(i)">Retirer</button>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+
+    <div class="fr-soft d-flex justify-content-between align-items-center gap-3 p-3 px-4 mt-3">
+        <div class="fw-semibold">Total matériel déductible en <span x-text="Y.rev"></span></div>
+        <div class="fr-amount fs-4" x-text="eur(c.mat)"></div>
+    </div>
+
+    <div class="fr-info d-flex gap-3 p-3 mt-3">
+        <div class="fr-info-icon">i</div>
+        <div class="small" style="line-height: 1.6; text-wrap: pretty">
+            <strong>Amortissement :</strong> jusqu'à 500 € HT, le matériel se déduit en une fois l'année de l'achat.
+            Au-delà, la déduction s'étale sur 3 ans (un tiers par an) : c'est pourquoi un achat de
+            <span x-text="Y.rev - 2"></span> ou <span x-text="Y.rev - 1"></span> peut encore générer une annuité en
+            <span x-text="Y.rev"></span>. Le calcul est fait automatiquement ci-dessus.
+        </div>
+    </div>
+</div>

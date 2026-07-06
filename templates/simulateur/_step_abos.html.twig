@@ -1,0 +1,90 @@
+<div x-show="step === 4" class="fr-fade">
+    <h2 class="fs-3 mb-2">Abonnements &amp; charges</h2>
+    <p class="fr-body-text mb-3" style="max-width: 680px; text-wrap: pretty">
+        Box internet, forfait mobile, électricité, loyer, outils IA… Pour chaque poste, indiquez la part
+        professionnelle. Votre prorata télétravail (<span x-text="prorata + ' %'"></span>) est proposé par défaut
+        pour les charges du domicile.
+    </p>
+
+    <div class="no-print d-flex gap-2 flex-wrap mb-3">
+        <template x-for="p in ABO_PRESETS" :key="p.label">
+            <button type="button" class="fr-chip" @click="addAbo(p)">+ <span x-text="p.label"></span></button>
+        </template>
+    </div>
+
+    <div x-show="sim.abos.length === 0" class="fr-empty p-4 text-center fw-medium">
+        Ajoutez un abonnement ou une charge avec les boutons ci-dessus.
+    </div>
+
+    <div class="d-flex flex-column gap-2">
+        <template x-for="(it, i) in sim.abos" :key="it.id">
+            <div class="fr-card p-3 px-4" style="border-radius: 16px">
+                <div class="row g-3 align-items-end">
+                    <div class="col-md-6">
+                        <label class="form-label small fw-semibold fr-muted mb-1" style="letter-spacing: 0.3px">POSTE</label>
+                        <input type="text" class="form-control" placeholder="Box internet" x-model="it.label">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-semibold fr-muted mb-1" style="letter-spacing: 0.3px">MONTANT / MOIS (€)</label>
+                        <input type="text" inputmode="decimal" class="form-control" placeholder="39,99" x-model="it.mensuel">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="form-label small fw-semibold fr-muted mb-1" style="letter-spacing: 0.3px">NB DE MOIS</label>
+                        <input type="text" inputmode="numeric" class="form-control" placeholder="12" x-model="it.mois">
+                    </div>
+                </div>
+
+                <div x-show="it.kind === 'loyer'" class="fr-panel d-flex align-items-end gap-3 flex-wrap p-3 mt-3">
+                    <div>
+                        <label class="form-label small fw-semibold fr-muted mb-1" style="letter-spacing: 0.3px">SURFACE DE L'ESPACE DE TRAVAIL</label>
+                        <div class="input-group" style="width: 150px">
+                            <input type="text" inputmode="decimal" class="form-control form-control-sm bg-white" placeholder="10" x-model="it.surfB">
+                            <span class="input-group-text">m²</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="form-label small fw-semibold fr-muted mb-1" style="letter-spacing: 0.3px">SURFACE TOTALE DU LOGEMENT</label>
+                        <div class="input-group" style="width: 150px">
+                            <input type="text" inputmode="decimal" class="form-control form-control-sm bg-white" placeholder="65" x-model="it.surfL">
+                            <span class="input-group-text">m²</span>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1" style="min-width: 220px">
+                        <div class="small fw-semibold fr-muted" style="letter-spacing: 0.3px">PART PRO CALCULÉE</div>
+                        <div class="fw-bold fr-ink mt-1" x-text="(Math.round(aboPctEff(it) * 10) / 10).toLocaleString('fr-FR') + ' %'"></div>
+                        <div class="small fr-muted" x-text="loyerFormule(it)"></div>
+                    </div>
+                </div>
+
+                <div class="d-flex align-items-center gap-3 mt-3 flex-wrap">
+                    <div x-show="it.kind !== 'loyer'" class="flex-grow-1 d-flex align-items-center gap-2" style="min-width: 260px">
+                        <span class="small fw-semibold fr-muted flex-none" style="letter-spacing: 0.3px">PART PRO</span>
+                        <input type="range" class="form-range flex-grow-1" min="0" max="100" step="5" x-model="it.pct">
+                        <span class="fw-bold small text-end" style="width: 44px" x-text="it.pct + ' %'"></span>
+                    </div>
+                    <div x-show="it.kind === 'loyer'" class="flex-grow-1"></div>
+                    <div class="d-flex align-items-center gap-3">
+                        <span class="fr-amount" style="min-width: 90px; text-align: right" x-text="eur(num(it.mensuel) * num(it.mois) * aboPctEff(it) / 100)"></span>
+                        <button type="button" class="no-print btn btn-link btn-sm p-1 fw-semibold" style="color: var(--fr-danger)" @click="delAbo(i)">Retirer</button>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+
+    <div class="fr-soft d-flex justify-content-between align-items-center gap-3 p-3 px-4 mt-3">
+        <div class="fw-semibold">Total abonnements &amp; charges déductibles</div>
+        <div class="fr-amount fs-4" x-text="eur(c.abos)"></div>
+    </div>
+
+    <div class="fr-info d-flex gap-3 p-3 mt-3">
+        <div class="fr-info-icon">i</div>
+        <div class="small" style="line-height: 1.6; text-wrap: pretty">
+            <strong>Le prorata :</strong> pour l'électricité ou la box, le fisc admet une quote-part proportionnelle
+            à l'usage professionnel ; votre rythme de télétravail (<span x-text="prorata + ' %'"></span> du temps) est
+            une base raisonnable. Pour le loyer, la part pro se calcule sur la surface de l'espace de travail rapportée
+            à celle du logement, multipliée par le temps de télétravail : renseignez les deux surfaces sur la ligne loyer.
+            Pour un abonnement à usage mixte (mobile, IA), estimez honnêtement la part pro : 50 % est courant.
+        </div>
+    </div>
+</div>

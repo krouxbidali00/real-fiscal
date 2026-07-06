@@ -1,0 +1,75 @@
+<div x-show="step === 1" class="fr-fade">
+    <h2 class="fs-3 mb-2">Frais de repas</h2>
+    <p class="fr-body-text mb-3" style="max-width: 680px; text-wrap: pretty">
+        Déductibles uniquement pour les jours travaillés <strong>sur site</strong>, quand vous ne pouvez pas rentrer
+        déjeuner chez vous. Les jours de télétravail n'ouvrent pas droit à déduction.
+    </p>
+
+    <div class="no-print fr-seg mb-3">
+        <button type="button" :class="{ on: sim.repas.mode === 'simple' }" @click="sim.repas.mode = 'simple'">Saisie rapide</button>
+        <button type="button" :class="{ on: sim.repas.mode === 'detail' }" @click="sim.repas.mode = 'detail'">Mois par mois</button>
+    </div>
+
+    <div x-show="sim.repas.mode === 'simple'" class="fr-card p-4">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Jours sur site avec repas payé</label>
+                <input type="text" inputmode="numeric" class="form-control" :placeholder="joursSiteSuggest" x-model="sim.repas.jours">
+                <div class="form-text fr-muted">Calculé automatiquement : (jours travaillés − jours de télétravail) × 45 semaines. Modifiable.</div>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Coût moyen d'un repas</label>
+                <div class="input-group">
+                    <input type="text" inputmode="decimal" class="form-control" placeholder="12,50" x-model="sim.repas.cout">
+                    <span class="input-group-text">€</span>
+                </div>
+                <div class="form-text fr-muted">Plafonné à <span x-text="eur2(Y.plafond)"></span> par le fisc.</div>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label fw-semibold">Participation employeur / jour</label>
+                <div class="input-group">
+                    <input type="text" inputmode="decimal" class="form-control" placeholder="0" x-model="sim.repas.emp">
+                    <span class="input-group-text">€</span>
+                </div>
+                <div class="form-text fr-muted">Part patronale du titre-restaurant, subvention cantine…</div>
+            </div>
+        </div>
+    </div>
+
+    <div x-show="sim.repas.mode === 'detail'" class="fr-card p-4">
+        <div class="fw-semibold small fr-muted pb-2 border-bottom" style="display: grid; grid-template-columns: 110px 1fr 1fr 110px; gap: 10px 16px; letter-spacing: 0.3px">
+            <div>MOIS</div><div>JOURS SUR SITE</div><div>COÛT MOYEN (€)</div><div class="text-end">DÉDUIT</div>
+        </div>
+        <template x-for="(m, i) in sim.repas.mois" :key="i">
+            <div class="py-2 border-bottom" style="display: grid; grid-template-columns: 110px 1fr 1fr 110px; gap: 10px 16px; align-items: center; border-color: #f7f3ec !important">
+                <div class="fw-semibold small" x-text="MOIS[i]"></div>
+                <input type="text" inputmode="numeric" class="form-control form-control-sm" placeholder="0" x-model="m.jours">
+                <input type="text" inputmode="decimal" class="form-control form-control-sm" placeholder="0" x-model="m.cout">
+                <div class="text-end fw-bold fr-ink small" x-text="repasDedMois(m)"></div>
+            </div>
+        </template>
+        <div class="d-flex align-items-center gap-2 pt-3 small fr-muted">
+            Participation employeur / jour :
+            <input type="text" inputmode="decimal" class="form-control form-control-sm" style="width: 90px" placeholder="0" x-model="sim.repas.emp"> €
+        </div>
+    </div>
+
+    <div class="fr-soft d-flex justify-content-between align-items-center flex-wrap gap-3 p-3 px-4 mt-3">
+        <div class="fw-semibold" x-text="sim.repas.mode === 'simple'
+            ? (c.joursEff > 0 && num(sim.repas.cout) > 0
+                ? c.joursEff + ' jours à ' + eur2(Math.max(0, Math.min(num(sim.repas.cout), Y.plafond) - Y.foyer - num(sim.repas.emp))) + ' déductibles par repas'
+                : 'Total repas déductibles')
+            : 'Total repas déductibles (12 mois)'"></div>
+        <div class="fr-amount fs-4" x-text="eur(c.repas)"></div>
+    </div>
+
+    <div class="fr-info d-flex gap-3 p-3 mt-3">
+        <div class="fr-info-icon">i</div>
+        <div class="small" style="line-height: 1.6; text-wrap: pretty">
+            <strong>La règle :</strong> par repas, vous déduisez la dépense (plafonnée à <span x-text="eur2(Y.plafond)"></span>)
+            moins la valeur d'un repas pris au foyer (<span x-text="eur2(Y.foyer)"></span>), moins toute participation de
+            l'employeur. Soit au maximum <span x-text="eur2(Y.plafond - Y.foyer)"></span> par jour. Sans justificatifs mais
+            avec l'impossibilité prouvée de rentrer chez vous, la déduction est limitée à <span x-text="eur2(Y.foyer)"></span> par jour.
+        </div>
+    </div>
+</div>

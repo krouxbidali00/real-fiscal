@@ -37,7 +37,7 @@ jobs:
             - uses: ramsey/composer-install@v3
             - run: composer test
 
-    js-lint:
+    js-checks:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v4
@@ -48,3 +48,4 @@ jobs:
             - run: npm ci
             - run: npm run lint
             - run: npm run format:check
+            - run: npm test

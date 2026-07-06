@@ -1,0 +1,72 @@
+<div x-show="step === 0" class="fr-fade">
+    <h2 class="fs-3 mb-2">Votre situation</h2>
+    <p class="fr-body-text mb-4" style="max-width: 640px; text-wrap: pretty">
+        Ces informations servent à calculer le prorata télétravail et à comparer vos frais réels
+        avec l'abattement forfaitaire de 10 %.
+    </p>
+
+    <div class="fr-card p-4">
+        <div class="mb-4">
+            <label class="form-label fw-semibold">Année de déclaration</label>
+            <div class="d-flex gap-2 flex-wrap">
+                <template x-for="a in ANNEES" :key="a">
+                    <button type="button" class="btn text-start px-4 py-2"
+                            :class="sim.annee === a ? 'btn-fr' : 'btn-fr-outline'"
+                            @click="sim.annee = a">
+                        <span class="d-block fr-display fs-6" x-text="a"></span>
+                        <span class="d-block small opacity-75" x-text="'revenus ' + (parseInt(a, 10) - 1)"></span>
+                    </button>
+                </template>
+            </div>
+            <div class="form-text fr-muted">Tous les barèmes (repas, kilométrique, abattement) s'ajustent automatiquement.</div>
+        </div>
+
+        <div class="mb-4">
+            <label class="form-label fw-semibold">Salaire net imposable annuel</label>
+            <div class="input-group" style="max-width: 320px">
+                <input type="text" inputmode="decimal" class="form-control" placeholder="35 000" x-model="sim.profil.salaire">
+                <span class="input-group-text">€</span>
+            </div>
+            <div class="form-text fr-muted">Ligne « salaires » de votre déclaration, avant abattement. Sert uniquement à la comparaison.</div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">Jours travaillés par semaine</label>
+                <input type="text" inputmode="decimal" class="form-control" style="max-width: 120px" x-model="sim.profil.joursSem">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label fw-semibold">Dont jours de télétravail par semaine</label>
+                <input type="text" inputmode="decimal" class="form-control" style="max-width: 120px" x-model="sim.profil.joursTT">
+                <div class="form-text fr-muted">Les demi-journées comptent : 2,5 par exemple.</div>
+            </div>
+        </div>
+
+        <div class="row g-3 mt-2">
+            <div class="col-md-6">
+                <div class="fr-soft p-3 h-100">
+                    <div class="fw-semibold small" style="letter-spacing: 0.3px">PRORATA TÉLÉTRAVAIL ESTIMÉ</div>
+                    <div class="fr-amount fs-4 mt-1" x-text="prorata + ' %'"></div>
+                    <div class="small mt-1" style="color: #4a5b52">Proposé par défaut pour vos abonnements liés au domicile, ajustable poste par poste.</div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="fr-panel p-3 h-100">
+                    <div class="fw-semibold small fr-muted" style="letter-spacing: 0.3px">VOTRE ABATTEMENT 10 %</div>
+                    <div class="fr-display fs-4 mt-1" x-text="c.abatt > 0 ? eur(c.abatt) : 'à renseigner'"></div>
+                    <div class="small fr-body-text mt-1">C'est la barre à dépasser pour que les frais réels soient avantageux.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="fr-info d-flex gap-3 p-3 mt-3">
+        <div class="fr-info-icon">i</div>
+        <div class="small" style="line-height: 1.6; text-wrap: pretty">
+            <strong>Comment ça marche ?</strong> Par défaut, le fisc déduit automatiquement 10 % de votre salaire
+            (minimum <span x-text="eur(Y.min)"></span>, plafond <span x-text="eur(Y.max)"></span> pour les revenus
+            <span x-text="Y.rev"></span>). Opter pour les frais réels remplace cet abattement : cela ne vaut le coup
+            que si le total de vos frais justifiés le dépasse. Conservez tous vos justificatifs 3 ans.
+        </div>
+    </div>
+</div>
