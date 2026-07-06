@@ -33,3 +33,7 @@
 /node_modules/
 /.eslintcache
 ###< eslint/prettier ###
+
+###> graphify (local artifacts) ###
+/graphify-out/
+###< graphify (local artifacts) ###
