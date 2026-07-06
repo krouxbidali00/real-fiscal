@@ -16,7 +16,9 @@
         </template>
     </div>
 
-    {# Les ecrans (home / wizard) seront inclus ici par les tasks suivantes #}
+    <template x-if="screen === 'home'">
+        {{ include('simulateur/_home.html.twig') }}
+    </template>
 
     {# ==== Pied de page baremes ==== #}
     <div class="mx-auto px-4 pb-4 small fr-muted" style="max-width: 980px">

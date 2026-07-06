@@ -1,0 +1,58 @@
+<div class="mx-auto px-4 pb-5 fr-fade" style="max-width: 980px">
+
+    <div class="fr-card p-4 p-lg-5 row g-5 align-items-center mx-0">
+        <div class="col-lg-7">
+            <span class="fr-badge d-inline-flex mb-3">Barèmes officiels, déclarations 2024 à 2026</span>
+            <h1 class="mb-3" style="font-size: clamp(28px, 4vw, 40px); text-wrap: pretty">Vos frais réels, calculés simplement.</h1>
+            <p class="fr-body-text mb-4" style="text-wrap: pretty">
+                Repas, trajets, matériel de télétravail, abonnements : l'assistant applique les règles fiscales
+                à votre place, compare avec l'abattement de 10 % et vous donne le montant exact à reporter case 1AK.
+            </p>
+            <button class="btn btn-fr btn-lg px-4" @click="newSim()">Nouvelle simulation</button>
+        </div>
+        <div class="col-lg-5 d-flex flex-column gap-2">
+            {% for point in [
+                'Frais de repas et de trajet, au barème de l\'année choisie',
+                'Matériel : amortissement automatique au-delà de 500 €',
+                'Abonnements et loyer : prorata usage pro / perso calculé',
+                'Verdict : frais réels ou abattement 10 % ?',
+            ] %}
+                <div class="fr-panel d-flex gap-3 align-items-center p-3">
+                    <div class="fr-display d-grid place-items-center flex-none" style="width: 34px; height: 34px; border-radius: 10px; background: var(--fr-acc-mid); color: var(--fr-acc-ink); display: grid; place-items: center">{{ loop.index }}</div>
+                    <div class="fw-medium" style="font-size: 14px">{{ point }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="mt-5">
+        <div class="d-flex align-items-baseline justify-content-between mb-3">
+            <h2 class="fs-4 m-0">Mes simulations</h2>
+            <div class="fr-muted small" x-text="hist.length + (hist.length > 1 ? ' simulations enregistrées' : ' simulation enregistrée')"></div>
+        </div>
+
+        <div x-show="hist.length === 0" class="fr-empty p-5 text-center fw-medium">
+            Aucune simulation pour l'instant. Elles seront enregistrées ici automatiquement, et resteront modifiables.
+        </div>
+
+        <div class="d-flex flex-column gap-2">
+            <template x-for="row in hist" :key="row.id">
+                <div class="fr-card d-flex align-items-center gap-3 px-4 py-3" style="border-radius: 16px">
+                    <div class="flex-grow-1 min-w-0" role="button" @click="openSim(row.id)">
+                        <div class="fw-bold" x-text="row.name"></div>
+                        <div class="fr-muted small mt-1">Modifiée le <span x-text="fmtDate(row.updated)"></span></div>
+                    </div>
+                    <div class="text-end me-2">
+                        <div class="fr-amount fs-6" x-text="eur(row.total || 0)"></div>
+                        <div class="fr-muted" style="font-size: 11.5px">frais déductibles</div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-fr-soft btn-sm" @click="openSim(row.id)">Reprendre</button>
+                        <button class="btn btn-fr-outline btn-sm" title="Dupliquer" @click="dupSim(row.id)">Dupliquer</button>
+                        <button class="btn btn-fr-danger-ghost btn-sm" title="Supprimer" @click="delSim(row.id)">Supprimer</button>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+</div>
