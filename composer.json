@@ -48,7 +48,8 @@
         "allow-plugins": {
             "php-http/discovery": true,
             "symfony/flex": true,
-            "symfony/runtime": true
+            "symfony/runtime": true,
+            "phpstan/extension-installer": true
         },
         "bump-after-update": true,
         "sort-packages": true
@@ -86,7 +87,13 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "test": "@php bin/phpunit",
+        "cs": "php-cs-fixer fix --dry-run --diff",
+        "cs:fix": "php-cs-fixer fix",
+        "twig:cs": "twig-cs-fixer lint templates",
+        "twig:fix": "twig-cs-fixer lint --fix templates",
+        "stan": "phpstan analyse"
     },
     "conflict": {
         "symfony/symfony": "*"
@@ -98,12 +105,17 @@
         }
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.95",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan": "^2.2",
+        "phpstan/phpstan-symfony": "^2.0",
         "phpunit/phpunit": "^13.2",
         "symfony/browser-kit": "8.1.*",
         "symfony/css-selector": "8.1.*",
         "symfony/debug-bundle": "8.1.*",
         "symfony/maker-bundle": "^1.0",
         "symfony/stopwatch": "8.1.*",
-        "symfony/web-profiler-bundle": "8.1.*"
+        "symfony/web-profiler-bundle": "8.1.*",
+        "vincentlanglet/twig-cs-fixer": "^4.0"
     }
 }

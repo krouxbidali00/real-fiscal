@@ -18,3 +18,22 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+
+###> friendsofphp/php-cs-fixer ###
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+###< friendsofphp/php-cs-fixer ###
+
+###> vincentlanglet/twig-cs-fixer ###
+/.twig-cs-fixer.php
+/.twig-cs-fixer.cache
+###< vincentlanglet/twig-cs-fixer ###
+
+###> eslint/prettier ###
+/node_modules/
+/.eslintcache
+###< eslint/prettier ###
+
+###> graphify (local artifacts) ###
+/graphify-out/
+###< graphify (local artifacts) ###
