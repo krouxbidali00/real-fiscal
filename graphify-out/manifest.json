@@ -1,0 +1,212 @@
+{
+  "/home/krouxbidali/workspaces/perso/real-fiscal/assets/app.js": {
+    "mtime": 1783363126.8612592,
+    "ast_hash": "d006050f7fa49df918acfe276459ec28",
+    "semantic_hash": "d006050f7fa49df918acfe276459ec28"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/assets/controllers.json": {
+    "mtime": 1783363126.8613226,
+    "ast_hash": "a034f0ce49d9003f3156848d7ab32a73",
+    "semantic_hash": "a034f0ce49d9003f3156848d7ab32a73"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/assets/controllers/csrf_protection_controller.js": {
+    "mtime": 1783363126.8613226,
+    "ast_hash": "2138ca5d53fb5654282c2b9a13c6b5ea",
+    "semantic_hash": "2138ca5d53fb5654282c2b9a13c6b5ea"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/assets/controllers/hello_controller.js": {
+    "mtime": 1783363126.861486,
+    "ast_hash": "8126d4710de1cce204501527fb117e77",
+    "semantic_hash": "8126d4710de1cce204501527fb117e77"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/assets/stimulus_bootstrap.js": {
+    "mtime": 1783363126.8615596,
+    "ast_hash": "4f2f1292d94ef1c2f62b703f6c6a5838",
+    "semantic_hash": "4f2f1292d94ef1c2f62b703f6c6a5838"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/bin/console": {
+    "mtime": 1783363126.8616736,
+    "ast_hash": "f23ac4e494f1eb6559b619c32371c156",
+    "semantic_hash": "f23ac4e494f1eb6559b619c32371c156"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/bin/phpunit": {
+    "mtime": 1783363126.8617365,
+    "ast_hash": "1e575fb6757b79b7048ba340f941c61d",
+    "semantic_hash": "1e575fb6757b79b7048ba340f941c61d"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/composer.json": {
+    "mtime": 1783363126.8619616,
+    "ast_hash": "f8bfd92914b83561855c880de56014e0",
+    "semantic_hash": "f8bfd92914b83561855c880de56014e0"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/bundles.php": {
+    "mtime": 1783363126.8629646,
+    "ast_hash": "d496cf028704a38fc0ad690d7eda0417",
+    "semantic_hash": "d496cf028704a38fc0ad690d7eda0417"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/preload.php": {
+    "mtime": 1783363126.8639688,
+    "ast_hash": "5634a46e4fafb61762215b64edeff145",
+    "semantic_hash": "5634a46e4fafb61762215b64edeff145"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/reference.php": {
+    "mtime": 1783363126.8643153,
+    "ast_hash": "a19013ad2f97aa3ba307269fc7126321",
+    "semantic_hash": "a19013ad2f97aa3ba307269fc7126321"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/importmap.php": {
+    "mtime": 1783363126.8646321,
+    "ast_hash": "510192d64d6695911faf28e5fec21b05",
+    "semantic_hash": "510192d64d6695911faf28e5fec21b05"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/public/index.php": {
+    "mtime": 1783363126.8648195,
+    "ast_hash": "64e62065d82ee5e1ccc98f68f7727320",
+    "semantic_hash": "64e62065d82ee5e1ccc98f68f7727320"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/src/Kernel.php": {
+    "mtime": 1783363126.8652658,
+    "ast_hash": "b67ae6fa32dc5488c22b3c1f2893af55",
+    "semantic_hash": "b67ae6fa32dc5488c22b3c1f2893af55"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/tests/bootstrap.php": {
+    "mtime": 1783363126.8655436,
+    "ast_hash": "3412362892450359f0a9fadd55270cc8",
+    "semantic_hash": "3412362892450359f0a9fadd55270cc8"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/README.md": {
+    "mtime": 1783362663.5630054,
+    "ast_hash": "606b22a8dc87d09e32d55ab96acc25da",
+    "semantic_hash": "606b22a8dc87d09e32d55ab96acc25da"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/compose.override.yaml": {
+    "mtime": 1783363126.8618171,
+    "ast_hash": "fc92027ff372f88495e78d5e69c4115b",
+    "semantic_hash": "fc92027ff372f88495e78d5e69c4115b"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/compose.yaml": {
+    "mtime": 1783363126.861885,
+    "ast_hash": "85a64c5ee8c0b3ddef65fbed74d85970",
+    "semantic_hash": "85a64c5ee8c0b3ddef65fbed74d85970"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/packages/asset_mapper.yaml": {
+    "mtime": 1783363126.8631036,
+    "ast_hash": "40c2bfead9dfdfc62565335c0d107a4e",
+    "semantic_hash": "40c2bfead9dfdfc62565335c0d107a4e"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/packages/cache.yaml": {
+    "mtime": 1783363126.8631558,
+    "ast_hash": "b6b1efc4d1fc4a463de33ffde5495a05",
+    "semantic_hash": "b6b1efc4d1fc4a463de33ffde5495a05"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/packages/csrf.yaml": {
+    "mtime": 1783363126.8632019,
+    "ast_hash": "73e2317fa955354c249ddcf7fc5b5319",
+    "semantic_hash": "73e2317fa955354c249ddcf7fc5b5319"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/packages/debug.yaml": {
+    "mtime": 1783363126.8632479,
+    "ast_hash": "020c09cb58a88c9f2a7e78603277e910",
+    "semantic_hash": "020c09cb58a88c9f2a7e78603277e910"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/packages/doctrine.yaml": {
+    "mtime": 1783363126.8632975,
+    "ast_hash": "7cfc9434891937e00f5582c2517e00bd",
+    "semantic_hash": "7cfc9434891937e00f5582c2517e00bd"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/packages/doctrine_migrations.yaml": {
+    "mtime": 1783363126.8633425,
+    "ast_hash": "a30a3bbf70d5981c92f4372cfa0bb57a",
+    "semantic_hash": "a30a3bbf70d5981c92f4372cfa0bb57a"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/packages/framework.yaml": {
+    "mtime": 1783363126.863388,
+    "ast_hash": "f4fec462c42b2591c38ae1fa76fbf259",
+    "semantic_hash": "f4fec462c42b2591c38ae1fa76fbf259"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/packages/mailer.yaml": {
+    "mtime": 1783363126.8634279,
+    "ast_hash": "38d79b1c540fc4e37731f9894267be4e",
+    "semantic_hash": "38d79b1c540fc4e37731f9894267be4e"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/packages/messenger.yaml": {
+    "mtime": 1783363126.8634748,
+    "ast_hash": "5da43b50522669cf51996ab920af1c6d",
+    "semantic_hash": "5da43b50522669cf51996ab920af1c6d"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/packages/monolog.yaml": {
+    "mtime": 1783363126.8635244,
+    "ast_hash": "c8a944c96f9e3945f1d4613300c59b0c",
+    "semantic_hash": "c8a944c96f9e3945f1d4613300c59b0c"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/packages/notifier.yaml": {
+    "mtime": 1783363126.8635695,
+    "ast_hash": "b312add738cb6e83f6c34a943c4860ff",
+    "semantic_hash": "b312add738cb6e83f6c34a943c4860ff"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/packages/property_info.yaml": {
+    "mtime": 1783363126.8636093,
+    "ast_hash": "974a0ce1b6fd72bf9cdc811034c43f4d",
+    "semantic_hash": "974a0ce1b6fd72bf9cdc811034c43f4d"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/packages/routing.yaml": {
+    "mtime": 1783363126.8636546,
+    "ast_hash": "71d9fd0fbb96604c19a6c7d0639ac36e",
+    "semantic_hash": "71d9fd0fbb96604c19a6c7d0639ac36e"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/packages/security.yaml": {
+    "mtime": 1783363126.8637087,
+    "ast_hash": "30828b56c8410778e7fdeb9f1f3458c9",
+    "semantic_hash": "30828b56c8410778e7fdeb9f1f3458c9"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/packages/translation.yaml": {
+    "mtime": 1783363126.8637536,
+    "ast_hash": "3de88b9017c4d8ef63106fa454fd1b7c",
+    "semantic_hash": "3de88b9017c4d8ef63106fa454fd1b7c"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/packages/twig.yaml": {
+    "mtime": 1783363126.8637936,
+    "ast_hash": "9245a8f431d4afc887f67803a75a3d58",
+    "semantic_hash": "9245a8f431d4afc887f67803a75a3d58"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/packages/ux_turbo.yaml": {
+    "mtime": 1783363126.863838,
+    "ast_hash": "1537de5e0a9200ce6b67869089f131da",
+    "semantic_hash": "1537de5e0a9200ce6b67869089f131da"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/packages/validator.yaml": {
+    "mtime": 1783363126.8638835,
+    "ast_hash": "6092edb135904f95a582cfc17988b986",
+    "semantic_hash": "6092edb135904f95a582cfc17988b986"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/packages/web_profiler.yaml": {
+    "mtime": 1783363126.8639283,
+    "ast_hash": "602e442be616e06088dee74aaeba0724",
+    "semantic_hash": "602e442be616e06088dee74aaeba0724"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/routes.yaml": {
+    "mtime": 1783363126.8643737,
+    "ast_hash": "bce7f9013f9375b5a5737cadeb94923a",
+    "semantic_hash": "bce7f9013f9375b5a5737cadeb94923a"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/routes/framework.yaml": {
+    "mtime": 1783363126.8644137,
+    "ast_hash": "0209eec2eef3ff5479f346528d8b4c7d",
+    "semantic_hash": "0209eec2eef3ff5479f346528d8b4c7d"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/routes/security.yaml": {
+    "mtime": 1783363126.8644576,
+    "ast_hash": "112f10b281f54bd4e8899f4bff4910ee",
+    "semantic_hash": "112f10b281f54bd4e8899f4bff4910ee"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/routes/web_profiler.yaml": {
+    "mtime": 1783363126.8645194,
+    "ast_hash": "ca223ff65794fcf86a2d66892524eb5c",
+    "semantic_hash": "ca223ff65794fcf86a2d66892524eb5c"
+  },
+  "/home/krouxbidali/workspaces/perso/real-fiscal/config/services.yaml": {
+    "mtime": 1783363126.8645694,
+    "ast_hash": "2f68d4b1ad5e14c83bf43c590284e34e",
+    "semantic_hash": "2f68d4b1ad5e14c83bf43c590284e34e"
+  }
+}
