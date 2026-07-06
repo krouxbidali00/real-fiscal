@@ -186,7 +186,7 @@ Alpine.data('fraisReels', () => ({
     },
     openSim(id) {
         const entry = this.hist.find((h) => h.id === id);
-        if (!entry) return;
+        if (!entry || !entry.sim) return;
         const sim = JSON.parse(JSON.stringify(entry.sim));
         // Soft migration for entries saved by older versions of the data shape.
         if (!sim.repas.mois)
@@ -203,7 +203,7 @@ Alpine.data('fraisReels', () => ({
     },
     dupSim(id) {
         const entry = this.hist.find((h) => h.id === id);
-        if (!entry) return;
+        if (!entry || !entry.sim) return;
         const sim = JSON.parse(JSON.stringify(entry.sim));
         sim.name = `${entry.name} (copie)`;
         this.hist = [

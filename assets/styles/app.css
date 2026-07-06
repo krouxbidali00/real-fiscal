@@ -267,6 +267,10 @@ input[type='checkbox'] {
 }
 
 @media print {
+    * {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+    }
     .no-print {
         display: none !important;
     }
