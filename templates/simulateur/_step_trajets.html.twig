@@ -1,0 +1,94 @@
+<div x-show="step === 2" class="fr-fade">
+    <h2 class="fs-3 mb-2">Frais kilométriques</h2>
+    <p class="fr-body-text mb-3" style="max-width: 680px; text-wrap: pretty">
+        Trajets domicile-travail avec votre véhicule personnel, calculés selon le barème kilométrique officiel
+        applicable à la déclaration <span x-text="sim.annee"></span>. Le barème couvre carburant, entretien,
+        assurance et dépréciation du véhicule.
+    </p>
+
+    <div class="fr-card p-4">
+        <div class="d-flex align-items-center gap-3 flex-wrap mb-4">
+            <div class="fr-seg">
+                <button type="button" :class="{ on: sim.km.veh === 'voiture' }" @click="sim.km.veh = 'voiture'">Voiture</button>
+                <button type="button" :class="{ on: sim.km.veh === 'moto' }" @click="sim.km.veh = 'moto'">Moto (&gt; 50 cm³)</button>
+                <button type="button" :class="{ on: sim.km.veh === 'cyclo' }" @click="sim.km.veh = 'cyclo'">Cyclomoteur (≤ 50 cm³)</button>
+            </div>
+            <label class="d-flex align-items-center gap-2 fw-semibold small" role="button">
+                <input type="checkbox" x-model="sim.km.elec" style="width: 17px; height: 17px">
+                Véhicule électrique <span class="fw-normal fr-muted">(majoration de 20 %)</span>
+            </label>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-md-3" x-show="sim.km.veh === 'voiture'">
+                <label class="form-label fw-semibold">Puissance fiscale</label>
+                <select class="form-select" x-model="sim.km.cv">
+                    <option value="3">3 CV et moins</option>
+                    <option value="4">4 CV</option>
+                    <option value="5">5 CV</option>
+                    <option value="6">6 CV</option>
+                    <option value="7">7 CV et plus</option>
+                </select>
+            </div>
+            <div class="col-md-3" x-show="sim.km.veh === 'moto'">
+                <label class="form-label fw-semibold">Puissance fiscale</label>
+                <select class="form-select" x-model="sim.km.cvMoto">
+                    <option value="1">1 ou 2 CV</option>
+                    <option value="3">3, 4 ou 5 CV</option>
+                    <option value="6">Plus de 5 CV</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label fw-semibold">Distance domicile-travail (aller)</label>
+                <div class="input-group">
+                    <input type="text" inputmode="decimal" class="form-control" placeholder="12" x-model="sim.km.dist">
+                    <span class="input-group-text">km</span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label fw-semibold">Allers-retours par jour</label>
+                <select class="form-select" x-model="sim.km.ar">
+                    <option value="1">1 aller-retour</option>
+                    <option value="2">2 allers-retours</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label fw-semibold">Jours de trajet dans l'année</label>
+                <input type="text" inputmode="numeric" class="form-control" :placeholder="c.jKm" x-model="sim.km.jours">
+                <div class="form-text fr-muted">Pré-rempli avec vos jours sur site. Modifiable.</div>
+            </div>
+        </div>
+
+        <div class="mt-3" style="max-width: 320px">
+            <label class="form-label fw-semibold">Autres déplacements professionnels (facultatif)</label>
+            <div class="input-group">
+                <input type="text" inputmode="numeric" class="form-control" placeholder="0" x-model="sim.km.autres">
+                <span class="input-group-text">km/an</span>
+            </div>
+        </div>
+
+        <div x-show="num(sim.km.dist) > 40" class="fr-warn small p-3 mt-3" style="line-height: 1.55; text-wrap: pretty">
+            Au-delà de 40 km entre le domicile et le travail, la fraction excédentaire n'est déductible que si vous
+            justifiez de circonstances particulières (mutation du conjoint, précarité de l'emploi...). Sans justification,
+            ramenez la distance saisie à 40 km et détaillez votre situation dans la rubrique « informations » de la déclaration.
+        </div>
+    </div>
+
+    <div class="fr-soft d-flex justify-content-between align-items-center flex-wrap gap-3 p-3 px-4 mt-3">
+        <div>
+            <div class="fw-semibold"><span x-text="c.kmAn.toLocaleString('fr-FR')"></span> km retenus sur l'année</div>
+            <div class="small mt-1" style="color: #4a5b52">Barème appliqué : <span x-text="c.kmFormule || 'Complétez les champs ci-dessus'"></span></div>
+        </div>
+        <div class="fr-amount fs-4" x-text="eur(c.km)"></div>
+    </div>
+
+    <div class="fr-info d-flex gap-3 p-3 mt-3">
+        <div class="fr-info-icon">i</div>
+        <div class="small" style="line-height: 1.6; text-wrap: pretty">
+            <strong>Le barème :</strong> identique pour les déclarations 2024, 2025 et 2026, il dépend de la puissance
+            fiscale (carte grise, champ P.6) et du kilométrage annuel. Les véhicules électriques bénéficient d'une
+            majoration de 20 %. Un seul aller-retour quotidien est admis, sauf contraintes justifiées (horaires atypiques,
+            raisons de santé, personne à charge nécessitant votre présence).
+        </div>
+    </div>
+</div>

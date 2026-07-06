@@ -36,7 +36,9 @@
 
             {{ include('simulateur/_step_profil.html.twig') }}
             {{ include('simulateur/_step_repas.html.twig') }}
-            {# Les etapes 3 a 6 seront incluses ici par les tasks suivantes #}
+            {{ include('simulateur/_step_trajets.html.twig') }}
+            {{ include('simulateur/_step_materiel.html.twig') }}
+            {# Les etapes 5 et 6 seront incluses ici par la task suivante #}
 
             {# Navigation #}
             <div class="no-print d-flex justify-content-between mt-4">
