@@ -198,7 +198,7 @@ test('abattement: 10% clamp min/max, 0 sans salaire', () => {
 test('total net: allocation soustraite, plancher 0', () => {
     const sim = simWith({ repas: { jours: '10', cout: '12,45', emp: '' } }); // repas 70
     sim.alloc = '30';
-    assert.equal(calc(sim).net, 40);
+    assert.ok(Math.abs(calc(sim).net - 40) < 1e-9);
     sim.alloc = '500';
     assert.equal(calc(sim).net, 0);
 });

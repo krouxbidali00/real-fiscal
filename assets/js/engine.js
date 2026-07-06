@@ -168,7 +168,7 @@ export function calc(sim) {
     km = Math.round(km);
 
     const total = repas + km + mat + abos;
-    const net = Math.round(Math.max(0, total - num(sim.alloc)));
+    const net = Math.max(0, total - num(sim.alloc));
     const sal = num(sim.profil.salaire);
     const abatt = sal > 0 ? Math.min(Math.max(sal * 0.1, Y.min), Y.max) : 0;
 
