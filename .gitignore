@@ -28,3 +28,8 @@
 /.twig-cs-fixer.php
 /.twig-cs-fixer.cache
 ###< vincentlanglet/twig-cs-fixer ###
+
+###> eslint/prettier ###
+/node_modules/
+/.eslintcache
+###< eslint/prettier ###
