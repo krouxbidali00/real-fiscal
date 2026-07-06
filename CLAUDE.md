@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Etat du projet
 
-Squelette Symfony 8.1 (PHP >= 8.4) avec CI qualite complete en place (PR #2 mergee). Les repertoires `src/Controller/`, `src/Entity/`, `src/Repository/` et `migrations/` sont vides : aucun code metier n'existe encore. La suite de tests contient un seul smoke test (boot du Kernel). `graphify-out/` contient un graphe de connaissances genere, pas du code applicatif. Les specs et plans d'implementation sont archives dans `docs/superpowers/`.
+Squelette Symfony 8.1 (PHP >= 8.4) avec CI qualite complete en place (PR #2 mergee). Premiere fonctionnalite en place : le simulateur de frais reels (route /, 100 % cote client — moteur fiscal assets/js/engine.js, composant Alpine assets/app.js, partials templates/simulateur/). Les simulations vivent en localStorage (cle fr2026_sims), la BDD reste dormante. La suite de tests contient un seul smoke test (boot du Kernel). `graphify-out/` contient un graphe de connaissances genere, pas du code applicatif. Les specs et plans d'implementation sont archives dans `docs/superpowers/`.
 
 ## Commandes
 
@@ -26,12 +26,13 @@ php bin/phpunit                                  # toute la suite (ou : composer
 php bin/phpunit tests/Chemin/VersLeTest.php      # un fichier
 php bin/phpunit --filter nomDeLaMethode          # un test precis
 
-# Qualite — memes commandes que la CI (jobs php-lint et js-lint)
+# Qualite — memes commandes que la CI (jobs php-lint et js-checks)
 composer cs          # php-cs-fixer en check (cs:fix pour corriger)
 composer twig:cs     # twig-cs-fixer en check (twig:fix pour corriger)
 composer stan        # PHPStan niveau 8
 npm run lint         # eslint (lint:fix pour corriger)
 npm run format:check # prettier en check (format pour corriger)
+npm test            # tests du moteur fiscal (node --test)
 
 # Base de donnees
 php bin/console doctrine:database:create
@@ -65,11 +66,12 @@ php bin/console importmap:require <package>      # ajouter une dependance JS
 
 - AssetMapper + importmap (`importmap.php`) : les dependances JS sont vendorees dans `assets/vendor/` (gitignore), aucun bundler ni etape de build.
 - Stimulus : les controleurs dans `assets/controllers/` sont auto-enregistres (convention `xxx_controller.js` → `data-controller="xxx"`). Point d'entree `assets/app.js`.
+- Alpine.js et Bootstrap (+ Popper) sont declares dans `importmap.php` au meme titre que Stimulus/Turbo — pas de bundler dedie. Alpine cohabite avec Stimulus : Stimulus reste le mecanisme de controleurs auto-enregistres, Alpine est utilise localement (ex. composant du simulateur) pour de la reactivite fine sans creer de controleur Stimulus dedie.
 - Turbo est actif : la protection CSRF des formulaires est **stateless** (jeton par header, genere par `assets/controllers/csrf_protection_controller.js` + config `csrf.yaml`/`ux_turbo.yaml`), pas par session.
 
 ### CI et qualite
 
-- `.github/workflows/ci.yml` : 3 jobs paralleles (`php-lint`, `php-tests`, `js-lint`) sur PR et push master, token en lecture seule. La CI appelle **exactement** les scripts composer/npm ci-dessus — pas de commande divergente a maintenir. En CI tout est check-only ; l'autofix (`cs:fix`, `twig:fix`, `lint:fix`, `format`) est reserve au local.
+- `.github/workflows/ci.yml` : 3 jobs paralleles (`php-lint`, `php-tests`, `js-checks`) sur PR et push master, token en lecture seule. `js-checks` execute aussi `npm test` (tests du moteur fiscal), en plus du lint/format. La CI appelle **exactement** les scripts composer/npm ci-dessus — pas de commande divergente a maintenir. En CI tout est check-only ; l'autofix (`cs:fix`, `twig:fix`, `lint:fix`, `format`) est reserve au local.
 - Scopes : php-cs-fixer (`@Symfony`) sur `src/` + `tests/` (`migrations/` exclu) ; PHPStan niveau 8 sur `src/` + `tests/` (extension phpstan-symfony) ; twig-cs-fixer sur `templates/` ; eslint/prettier limites a `assets/` (hors `assets/vendor/`). Le toolchain Node ne sert QUE au lint — toujours pas de build front (AssetMapper).
 - **PIEGE — ne pas re-supprimer** : `Kernel::getAllowedEnvs()` porte un `@phpstan-ignore method.unused`. Ce n'est PAS du code mort : c'est le hook framework qui restreint les valeurs d'`APP_ENV` (appele par `KernelTrait` dans vendor, invisible pour PHPStan). Il a deja ete supprime par erreur une fois pour satisfaire PHPStan — la suppression desactive silencieusement l'enforcement.
 
