@@ -67,10 +67,12 @@ composer test         bin/phpunit
 npm (`package.json`, section `scripts`) :
 
 ```
-npm run lint          eslint
-npm run format:check  prettier --check .
-npm run format        prettier --write .
+npm run lint          eslint .
+npm run format:check  prettier --check "assets/**/*.{js,css}"
+npm run format        prettier --write "assets/**/*.{js,css}"
 ```
+
+Prettier est volontairement scope a `assets/` (et non `.`) pour ne pas entrer en conflit avec les fichiers YAML/JSON generes et regeneres par Symfony Flex (composer.json, config/*.yaml).
 
 ## Cas limites
 
