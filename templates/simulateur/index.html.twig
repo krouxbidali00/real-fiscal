@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Frais réels — calculez vos frais déductibles{% endblock %}
+
+{% block body %}
+<div x-data="fraisReels" x-cloak style="min-height: 100vh">
+
+    {# ==== Barre du haut ==== #}
+    <div class="no-print d-flex align-items-center justify-content-between gap-3 px-4 py-3 mx-auto" style="max-width: 980px">
+        <div role="button" @click="goHome()">
+            <div class="fr-display fs-5 lh-1">frais r<span style="color: var(--fr-acc)">é</span>els</div>
+            <div class="fr-muted small mt-1">Déclaration <span x-text="sim ? sim.annee : '2026'"></span> · revenus <span x-text="Y.rev"></span></div>
+        </div>
+        <template x-if="screen === 'wizard'">
+            <input x-model="sim.name" aria-label="Nom de la simulation" class="form-control text-end border-0 bg-transparent" style="max-width: 260px">
+        </template>
+    </div>
+
+    {# Les ecrans (home / wizard) seront inclus ici par les tasks suivantes #}
+
+    {# ==== Pied de page baremes ==== #}
+    <div class="mx-auto px-4 pb-4 small fr-muted" style="max-width: 980px">
+        Outil d'aide au calcul, sans valeur contractuelle. Barèmes officiels de l'année de déclaration choisie
+        (<span x-text="sim ? sim.annee : '2026'"></span>, revenus <span x-text="Y.rev"></span>) :
+        repas au foyer <span x-text="eur2(Y.foyer)"></span>, plafond <span x-text="eur2(Y.plafond)"></span>,
+        abattement 10 % de <span x-text="eur(Y.min)"></span> à <span x-text="eur(Y.max)"></span>,
+        barème kilométrique DGFiP. Vérifiez votre situation sur impots.gouv.fr.
+    </div>
+</div>
+{% endblock %}
