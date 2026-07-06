@@ -24,5 +24,11 @@ export default [
             ...js.configs.recommended.rules,
         },
     },
+    {
+        files: ['assets/**/*.test.js'],
+        languageOptions: {
+            globals: { ...globals.node },
+        },
+    },
     prettier,
 ];

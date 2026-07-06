@@ -1,7 +1,9 @@
 {
     "name": "real-fiscal",
+    "type": "module",
     "private": true,
     "scripts": {
+        "test": "node --test 'assets/js/*.test.js'",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
         "format": "prettier --write \"assets/**/*.{js,css}\"",
