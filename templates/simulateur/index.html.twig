@@ -20,6 +20,34 @@
         {{ include('simulateur/_home.html.twig') }}
     </template>
 
+    <template x-if="screen === 'wizard'">
+        <div class="mx-auto px-4 pb-5" style="max-width: 980px">
+
+            {# Stepper #}
+            <div class="no-print d-flex gap-1 mb-4">
+                <template x-for="(label, i) in labels" :key="i">
+                    <div class="fr-stepper-item" :class="{ active: step === i, done: i < step }" @click="goStep(i)">
+                        <div class="fw-bold" style="font-size: 12px; letter-spacing: 0.4px" :style="step === i ? 'color: var(--fr-acc)' : 'color: #b8b0a1'">ÉTAPE <span x-text="i + 1"></span></div>
+                        <div class="fw-semibold mt-1" style="font-size: 13.5px" :style="step === i ? 'color: var(--fr-acc-ink)' : i < step ? 'color: #3e3a32' : 'color: #a39b8d'" x-text="label"></div>
+                        <div class="bar"></div>
+                    </div>
+                </template>
+            </div>
+
+            {{ include('simulateur/_step_profil.html.twig') }}
+            {{ include('simulateur/_step_repas.html.twig') }}
+            {# Les etapes 3 a 6 seront incluses ici par les tasks suivantes #}
+
+            {# Navigation #}
+            <div class="no-print d-flex justify-content-between mt-4">
+                <button class="btn btn-fr-outline px-4 py-2" :style="step === 0 ? 'visibility: hidden' : ''" @click="prev()">
+                    ← <span x-text="step > 0 ? labels[step - 1] : ''"></span>
+                </button>
+                <button class="btn btn-fr px-4 py-2" @click="next()" x-text="step < 5 ? 'Continuer : ' + labels[step + 1] : 'Terminer'"></button>
+            </div>
+        </div>
+    </template>
+
     {# ==== Pied de page baremes ==== #}
     <div class="mx-auto px-4 pb-4 small fr-muted" style="max-width: 980px">
         Outil d'aide au calcul, sans valeur contractuelle. Barèmes officiels de l'année de déclaration choisie
