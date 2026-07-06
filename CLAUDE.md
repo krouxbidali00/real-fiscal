@@ -33,6 +33,7 @@ composer stan        # PHPStan niveau 8
 npm run lint         # eslint (lint:fix pour corriger)
 npm run format:check # prettier en check (format pour corriger)
 npm test             # tests du moteur fiscal (node --test)
+node --test --test-name-pattern="abattement" 'assets/js/*.test.js'   # un test JS precis
 
 # Base de donnees
 php bin/console doctrine:database:create
@@ -43,7 +44,7 @@ php bin/console doctrine:migrations:migrate
 # Worker asynchrone (obligatoire pour l'envoi d'emails/notifications)
 php bin/console messenger:consume async -vv
 
-# Frontend (AssetMapper — PAS de Node/npm/webpack)
+# Frontend (AssetMapper — pas de bundler ; Node sert au lint et aux tests, jamais au build)
 php bin/console importmap:require <package>      # ajouter une dependance JS
 ```
 
@@ -68,6 +69,17 @@ php bin/console importmap:require <package>      # ajouter une dependance JS
 - Stimulus : les controleurs dans `assets/controllers/` sont auto-enregistres (convention `xxx_controller.js` → `data-controller="xxx"`). Point d'entree `assets/app.js`.
 - Alpine.js et Bootstrap (+ Popper) sont declares dans `importmap.php` au meme titre que Stimulus/Turbo — pas de bundler dedie. Alpine cohabite avec Stimulus : Stimulus reste le mecanisme de controleurs auto-enregistres, Alpine est utilise localement (ex. composant du simulateur) pour de la reactivite fine sans creer de controleur Stimulus dedie.
 - Turbo est actif : la protection CSRF des formulaires est **stateless** (jeton par header, genere par `assets/controllers/csrf_protection_controller.js` + config `csrf.yaml`/`ux_turbo.yaml`), pas par session.
+
+### Simulateur de frais reels (fonctionnalite principale)
+
+App 100 % cote client servie par `SimulateurController` (route `/`). Quatre unites aux frontieres strictes :
+
+- `assets/js/engine.js` — **moteur fiscal pur** (zero import, zero DOM) : baremes 2024-2026 (repas, kilometrique, abattement), `calc(sim)` et helpers. **Toute regle fiscale vit ICI et nulle part ailleurs**, verrouillee par `assets/js/engine.test.js` (14 tests, dont un scenario de reference avec valeurs exactes reutilise pour l'E2E manuel). Modifier un bareme = modifier engine.js + ses tests, rien d'autre.
+- `assets/js/storage.js` — localStorage, cle **`fr2026_sims`** partagee avec la maquette d'origine : des donnees etrangeres peuvent y exister, d'ou les gardes de forme (`Array.isArray`, `entry.sim` verifie dans openSim/dupSim). Ne pas retirer ces gardes.
+- `assets/app.js` — composant `Alpine.data('fraisReels')` : state (screen/step/sim/hist), getters qui deleguent a `calc()`, actions. La persistence profonde passe par un `Alpine.effect` + `JSON.stringify(this.sim)` dans `init()` (le stringify rend chaque cle imbriquee reactive) — pattern deliberate, ne pas « simplifier ».
+- `templates/simulateur/` — `index.html.twig` (shell, stepper, navigation) + 1 partial par ecran (`_home`, `_step_profil` … `_step_synthese`), lies au composant par `x-model`/`x-text`. Chaque partial a UN element racine (exigence des `<template x-if>`).
+
+Dette connue (review finale, non bloquante) : quelques formules d'affichage re-derivent des regles du moteur (bandeau repas dans `_step_repas`, `repasDedMois` dans app.js, suggestion de jours) — si une regle repas change, synchroniser ces trois points ou consolider dans `calc()`.
 
 ### CI et qualite
 
